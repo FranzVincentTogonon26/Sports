@@ -2,9 +2,11 @@ import arcjet, {detectBot, shield, slidingWindow} from "@arcjet/node";
 import { ENV } from "./env.js";
 
 const arcjetKey = ENV.ARCJET_KEY;
-const arcjetMode = ENV.ARCJECT_MODE === 'DRY_RUN' ? 'DRY_RUN' : 'LIVE';
+const arcjetMode = ENV.ARCJET_MODE === 'DRY_RUN' ? 'DRY_RUN' : 'LIVE';
 
-if(!arcjetKey) throw new Error('ARCJET_KEY environment variable is missing.');
+if (!arcjetKey && ENV.NODE_ENV === 'production') {
+    throw new Error('ARCJET_KEY environment variable is missing.');
+}
 
 export const httpArcjet = arcjetKey ?
     arcjet({

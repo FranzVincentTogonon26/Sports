@@ -11,7 +11,7 @@ Express
 ```
 
 ```bash
-Neon Postgress Drizzle ORM
+Neon Postgres Drizzle ORM
 ```
 
 ```bash
@@ -19,5 +19,10 @@ Zod
 ```
 
 ```bash
-ws ( npm i -g wscat )
+ws
+```
+
+```bash
+npm i -g wscat
+wscat -c ws://localhost:<PORT>/ws
 ```
