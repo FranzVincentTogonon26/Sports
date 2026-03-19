@@ -1,4 +1,4 @@
-# VideoCall AI Interview
+# Sports Using Websockets
 
 Tech stack:
 
@@ -12,4 +12,7 @@ Express
 
 ```bash
 Neon Postgress Drizzle
+```
+```bash
+Zod
 ```
