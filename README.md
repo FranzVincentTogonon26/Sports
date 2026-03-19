@@ -11,8 +11,13 @@ Express
 ```
 
 ```bash
-Neon Postgress Drizzle
+Neon Postgress Drizzle ORM
 ```
+
 ```bash
 Zod
+```
+
+```bash
+ws ( npm i -g wscat )
 ```
