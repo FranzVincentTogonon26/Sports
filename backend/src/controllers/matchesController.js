@@ -1,5 +1,12 @@
-import Matches from "../models/matches.js";
-import { createMatchSchema, listMatchesQuerySchema } from "../validation/matches.js";
+import Matches from "../models/Matches.js";
+import { 
+    createMatchSchema, 
+    listMatchesQuerySchema,
+    matchIdParamSchema,
+    updateScoreSchema,
+    MATCH_STATUS
+} from "../validation/matches.js";
+import { syncMatchStatus } from "../utils/match-status.js";
 
 export const getMatches = async (req, res, next) => {
     try {
@@ -39,7 +46,7 @@ export const createMatches = async (req, res, next) => {
             });
         }
 
-        const event = await Matches.createMatches(parsedData);
+        const [event] = await Matches.createMatches(parsedData);
 
         if(res.app.locals.broadcastMatchCreated) {
             res.app.locals.broadcastMatchCreated(event);
@@ -92,7 +99,7 @@ export const patchMatches = async (req, res, next) => {
             });
         }
 
-        const updated = await Matches.createMatches(bodyParsed,matchId);
+        const [updated] = await Matches.updateMatches(bodyParsed, matchId);
 
         if (res.app.locals.broadcastScoreUpdate) {
             res.app.locals.broadcastScoreUpdate(matchId, {

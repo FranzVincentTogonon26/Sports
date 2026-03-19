@@ -1,4 +1,4 @@
-import {desc} from "drizzle-orm";
+import {desc, eq} from "drizzle-orm";
 
 import { db } from "../db/db.js";
 import { matches } from "../db/schema.js";
@@ -47,7 +47,7 @@ class Matches {
             .where(eq(matches.id, matchId))
             .limit(1);
 
-        return result;
+        return result[0] ?? null;
     }
 
     // update matches by status

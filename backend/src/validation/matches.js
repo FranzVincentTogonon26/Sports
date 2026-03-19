@@ -26,12 +26,13 @@ export const createMatchSchema = z.object({
   }),
   homeScore: z.coerce.number().int().nonnegative().optional(),
   awayScore: z.coerce.number().int().nonnegative().optional(),
-}).superRefine((ctx, next) => {
-  if (ctx.startTime && ctx.endTime) {
-    const start = new Date(ctx.startTime);
-    const end = new Date(ctx.endTime);
+}).superRefine((data, ctx) => {
+  if (data.startTime && data.endTime) {
+    const start = new Date(data.startTime);
+    const end = new Date(data.endTime);
     if (end <= start) {
-      next.addError({
+      ctx.addIssue({
+        code: 'custom',
         path: ['endTime'],
         message: 'endTime must be after startTime',
       });
