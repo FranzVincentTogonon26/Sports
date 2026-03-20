@@ -1,8 +1,11 @@
-import express from 'express'
 import http from 'http';
+import express from 'express'
+import helmet from 'helmet';
+import morgan from 'morgan';
 
 import { ENV } from './config/env.js'
 import matchRouter  from './routes/matchRouter.js'
+import { securityMiddleware } from "./config/arcjet.js";
 import { attachWebSocketServer } from './ws/ws-server.js';
 
 const app = express();
@@ -10,6 +13,11 @@ const server = http.createServer(app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware
+app.use(helmet({ contentSecurityPolicy: false }));
+app.use(morgan('dev')); // log the request
+app.use(securityMiddleware());
 
 // Routes
 app.use('/api/matches', matchRouter);
