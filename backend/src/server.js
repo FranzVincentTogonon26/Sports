@@ -4,7 +4,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import { ENV } from './config/env.js'
-import matchRouter  from './routes/matchRouter.js'
+import matchRouter  from './routes/matchRouter.js';
+import commentaryRouter  from './routes/commentaryRouter.js';
 import { securityMiddleware } from "./config/arcjet.js";
 import { attachWebSocketServer } from './ws/ws-server.js';
 
@@ -21,6 +22,7 @@ app.use(securityMiddleware());
 
 // Routes
 app.use('/api/matches', matchRouter);
+app.use('/api/commentary', commentaryRouter);
 
 const { broadcastMatchCreated, broadcastCommentary } = attachWebSocketServer(server);
 app.locals.broadcastMatchCreated = broadcastMatchCreated;
