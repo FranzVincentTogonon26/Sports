@@ -60,6 +60,10 @@ export const createCommentary = async (req, res, next) => {
 
         const [result] = await Commentary.createCommentary(bodyResult.data, paramsResult);
 
+        if (!result) {
+            return res.status(500).json({ error: 'Failed to create commentary.' });
+        }
+
         if(res.app.locals.broadcastCommentary) {
             res.app.locals.broadcastCommentary(result.matchId, result);
         }
